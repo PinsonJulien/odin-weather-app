@@ -46,7 +46,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title:'Odin - Todo List',
+      title:'Odin - Weather App',
       favicon: './src/favicon.ico',
     }),
   ]
