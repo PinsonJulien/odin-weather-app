@@ -1,0 +1,60 @@
+@import "./reset.css";
+@import "./globals.scss";
+@import "./layout.scss";
+@import "./pages.scss";
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: $neutral-100;
+  color: $neutral-700;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+// Every text has it's first letter in uppercase by default
+*::first-letter {
+  text-transform: uppercase;
+}
+
+// Button
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: inherit;
+}
+
+button:has(.material-symbols-rounded) {
+  padding: 0;
+  background-color: inherit;
+  border: none;
+}
+
+// Input / select
+input, select {
+  box-sizing: border-box;
+}
+
+// Icons
+.material-symbols-rounded {
+  color: inherit;
+  font-size: inherit;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48;
+}
+
+// Scroll bar
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 15px;
+  background-color: $neutral-400;
+}
