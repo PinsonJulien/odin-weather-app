@@ -1,5 +1,5 @@
 import Control from "../control";
-import Option, { OptionProps } from "./option";
+import Option, { OptionProps } from "../options/option";
 
 export default class Select extends Control<HTMLSelectElement> {
   private _options: Option[] = [];

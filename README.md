@@ -19,4 +19,5 @@ Currently none
 Currently none
 
 ## Features to implement
-Currently none
+- Input should show all 10 results
+- Datalist should not show values.

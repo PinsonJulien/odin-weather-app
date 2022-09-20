@@ -1,7 +1,8 @@
 import Control from "../control";
+import { InputType } from "./input-type";
 
 export default abstract class Input extends Control<HTMLInputElement> {
-  private _type: string;
+  private _type: InputType;
 
   constructor(
     type: Input['_type'],

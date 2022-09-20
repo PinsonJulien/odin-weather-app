@@ -11,9 +11,6 @@ export default class Forecast extends OpenMeteo {
       .then((res) => {
         console.log(res)
         return res;
-      })
-      .catch((e) => {
-        return [];
       });
   }
 }
