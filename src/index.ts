@@ -46,7 +46,7 @@ cityField.control.root.addEventListener('click', async (e) => {
   const options: Option[] = cities.map((city, id) => {
     return new Option({
       value: id.toString(),
-      text: `${city.name} [${city.country}]`
+      text: `${city.name} [${city.country}, ${city.admin}]`
     });
   });
 

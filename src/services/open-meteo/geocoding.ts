@@ -9,11 +9,17 @@ export default class Geocoding extends OpenMeteo {
   public async searchCity(name: string): Promise<City[]> {
     const cities = await this.get(`search?name=${name}`);
     if (!cities.results) return [];
+
+    console.log(cities.results)
     
     return cities.results.map((city: any) => {
+      let admin = city.admin1;
+      if (city.admin2) admin += ", " + city.admin2; 
+
       return new City({
         name: city.name,
         country: city.country,
+        admin: admin,
         latitude: city.latitude,
         longitude: city.longitude,
       });

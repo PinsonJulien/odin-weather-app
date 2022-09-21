@@ -3,6 +3,7 @@ import Model from "./model";
 export interface ICity {
   name: string;
   country: string;
+  admin: string;
   latitude: number;
   longitude: number;
 }
@@ -10,6 +11,7 @@ export interface ICity {
 export class City extends Model {
   private _name: string;
   private _country: string;
+  private _admin: string;
   private _latitude: number;
   private _longitude: number;
 
@@ -18,6 +20,7 @@ export class City extends Model {
 
     this.name = city.name;
     this.country = city.country;
+    this.admin = city.admin;
     this.latitude = city.latitude;
     this.longitude = city.longitude;
   }
@@ -36,6 +39,14 @@ export class City extends Model {
 
   public set country(country: string) {
     this._country = country;
+  }
+
+  public get admin(): string {
+    return this._admin;
+  }
+
+  public set admin(admin: string) {
+    this._admin = admin;
   }
 
   public get latitude(): number {
@@ -58,6 +69,7 @@ export class City extends Model {
     return {
       name: this.name,
       country: this.country,
+      admin: this.admin,
       latitude: this.latitude,
       longitude: this.longitude
     }
