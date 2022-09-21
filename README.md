@@ -20,4 +20,3 @@ Currently none
 
 ## Features to implement
 - Input should show all 10 results
-- Datalist should not show values.

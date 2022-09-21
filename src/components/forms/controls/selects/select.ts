@@ -5,12 +5,12 @@ export default class Select extends Control<HTMLSelectElement> {
   private _options: Option[] = [];
 
   constructor(
-    optionProps: OptionProps[],
-    name: Select['_name']
+    name: Select['_name'],
+    optionProps?: OptionProps[],    
   ) {
     super(document.createElement('select'), name);
 
-    this.options = optionProps;
+    if (optionProps) this.options = optionProps;
   }
 
   public get options(): Select['_options'] {

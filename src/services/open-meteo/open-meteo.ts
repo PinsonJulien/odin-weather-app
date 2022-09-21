@@ -1,6 +1,7 @@
 import Fetch from "../../utils/fetch/fetch";
+import Service from "../service";
 
-export default class OpenMeteo {
+export default class OpenMeteo extends Service{
   private fetchAPI = new Fetch();
 
   private url: string;
@@ -10,7 +11,7 @@ export default class OpenMeteo {
   constructor(
     subdomain?: string,
   ) {
-
+    super();
     this.subdomain = (subdomain) ? subdomain : "api";
 
     this.url = `https://${this.subdomain}.${this.domain}`;
