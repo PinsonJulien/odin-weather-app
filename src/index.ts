@@ -53,14 +53,13 @@ cityField.control.root.addEventListener('click', async (e) => {
   cityField.control.options = options;
 });
 
-cityField.control.root.addEventListener('change', async (e) => {
+cityField.control.root.addEventListener('input', async (e) => {
   // Find the city from the select field.
   const id = Number(cityField.control.value);
   const city = cities[id];
 
   // Get forecast and change the UI
-  const forecastData = forecast.getCityForecast(city);
-  forecastData.then((res) => {
-    console.log(res);
-  })
+  
+  const forecastData = await forecast.getCityForecast(city);
+  console.log(forecastData)
 });

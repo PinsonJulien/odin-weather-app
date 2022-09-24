@@ -19,4 +19,8 @@ Currently none
 Currently none
 
 ## Features to implement
-- Input should show all 10 results
+- Implement controllers and model methods.
+- Shows next 7 days, including current
+- Each have a card : 
+  - Overall
+  - Detailed, with a hour slider (datalist with input range)

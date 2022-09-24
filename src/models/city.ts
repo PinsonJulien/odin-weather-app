@@ -6,6 +6,7 @@ export interface ICity {
   admin: string;
   latitude: number;
   longitude: number;
+  timezone: string;
 }
 
 export class City extends Model {
@@ -14,6 +15,7 @@ export class City extends Model {
   private _admin: string;
   private _latitude: number;
   private _longitude: number;
+  private _timezone: string;
 
   constructor(city: ICity) {
     super();
@@ -23,6 +25,7 @@ export class City extends Model {
     this.admin = city.admin;
     this.latitude = city.latitude;
     this.longitude = city.longitude;
+    this.timezone = city.timezone;
   }
 
   public get name(): string {
@@ -65,13 +68,22 @@ export class City extends Model {
     this._longitude = longitude;
   }
 
+  public get timezone(): City["_timezone"] {
+    return this._timezone;
+  }
+
+  public set timezone(timezone: City['_timezone']) {
+    this._timezone = timezone;
+  }
+
   public getRawObject(): ICity {
     return {
       name: this.name,
       country: this.country,
       admin: this.admin,
       latitude: this.latitude,
-      longitude: this.longitude
+      longitude: this.longitude,
+      timezone: this.timezone
     }
   }
 }
