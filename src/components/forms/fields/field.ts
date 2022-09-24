@@ -1,8 +1,8 @@
-import Component from "../../component";
+import Div from "../../html/div";
 import Control from "../controls/control";
 import Label from "../labels/label";
 
-export default class Field<T extends Control<any>> extends Component<HTMLDivElement> {
+export default class Field<T extends Control<any>> extends Div {
   protected readonly _label: Label;
   protected readonly _control: T;
 
@@ -10,7 +10,7 @@ export default class Field<T extends Control<any>> extends Component<HTMLDivElem
     label: Field<T>['_label'],
     control: Field<T>['_control']
   ) {
-    super(document.createElement('div'));
+    super();
     this.addClass('form-field');
 
     this._label = label;

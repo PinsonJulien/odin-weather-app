@@ -1,18 +1,25 @@
 import Component from "../component";
 
+
+export interface IForm {
+  submit?: Form['_submit'];
+  cancel?: Form['_cancel'];
+}
+
 export default class Form extends Component<HTMLFormElement> {
   private _method: "post" | "get";
-  private readonly _submit: (...args: any[]) => any;
-  private readonly _cancel: (...args: any[]) => any;
+  private readonly _submit: (...args: any[]) => any = () => null;
+  private readonly _cancel: (...args: any[]) => any = () => null;
 
   constructor(
-    submit: Form['_submit'],
-    cancel: Form['_cancel']
+    form?: IForm
   ) {
     super(document.createElement('form'));
 
-    this._submit = submit;
-    this._cancel = cancel;
+    if (form) {
+      if (form.submit) this._submit = form.submit;
+      if (form.cancel) this._cancel = form.cancel;
+    }
 
     this.method = "post";
   }

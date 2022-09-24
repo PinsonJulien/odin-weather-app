@@ -13,6 +13,7 @@ Github workflow builds the project to the gh-pages branch, which serves as the g
 - npm run dev
 
 ## Known issues
+- Select field doesn't update on first change.
 Currently none
 
 ## Possible improvements
