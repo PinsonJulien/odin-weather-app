@@ -3,7 +3,7 @@ import { DailyWeather, Forecast as ForecastModel } from "../../models/forecast";
 import { HourlyWeather } from "../../models/forecast";
 import OpenMeteo from "./open-meteo";
 
-export default class Forecast extends OpenMeteo {
+export class Forecast extends OpenMeteo {
   constructor() {
     super('api');
   }

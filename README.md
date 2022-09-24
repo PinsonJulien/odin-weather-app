@@ -14,13 +14,11 @@ Github workflow builds the project to the gh-pages branch, which serves as the g
 
 ## Known issues
 - Select field doesn't update on first change.
-Currently none
 
 ## Possible improvements
 Currently none
 
 ## Features to implement
-- Implement controllers and model methods.
 - Shows next 7 days, including current
 - Each have a card : 
   - Overall

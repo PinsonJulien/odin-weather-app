@@ -1,7 +1,7 @@
 import { City } from "../../models/city";
 import OpenMeteo from "./open-meteo";
 
-export default class Geocoding extends OpenMeteo {
+export class Geocoding extends OpenMeteo {
   constructor() {
     super('geocoding-api');
   }

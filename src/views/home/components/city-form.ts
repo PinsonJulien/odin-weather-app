@@ -4,36 +4,37 @@ import Select from "../../../components/forms/controls/selects/select";
 import Field from "../../../components/forms/fields/field";
 import Form from "../../../components/forms/form";
 import Label from "../../../components/forms/labels/label";
-import { City } from "../../../models/city";
-import Geocoding from "../../../services/open-meteo/geocoding";
+import { City as CityModel } from "../../../models/city";
+import { City as CityController } from "../../../controllers/city";
 
 export interface CityFormListener {
-  citySelected(city: City): void;
+  citySelected(city: CityModel): void;
 }
 
 export default class CityForm extends Form {
-  private readonly geocodingController: Geocoding;
+  private readonly cityController: CityController;
   private readonly cityFormListener: CityFormListener;
 
   private readonly searchField: Field<SearchInput>;
   private readonly citySelectField: Field<Select>;
 
   private lastCitySearch = "";
-  private cities: City[] = []; 
+  private cities: CityModel[] = []; 
 
   constructor(
-    geocodingController: Geocoding,
+    cityController: CityController,
     cityFormListener: CityFormListener,
   ) {
     super();
 
-    this.geocodingController = geocodingController;
+    this.cityController = cityController;
     this.cityFormListener = cityFormListener;
 
     this.searchField = new Field(
       new Label('Search your city:', 'city-search'),
       new SearchInput('city-search')
     );
+    this.searchField.control.root.autocomplete = "off";
 
     this.citySelectField = new Field(
       new Label('Select your city:', 'city-select'),
@@ -52,7 +53,7 @@ export default class CityForm extends Form {
       this.lastCitySearch = value;
 
       // search for cities with a similar given name
-      this.cities = await this.geocodingController.searchCity(value);
+      this.cities = await this.cityController.search(value);
       const options: Option[] = this.cities.map((city, id) => {
         return new Option({
           value: id.toString(),
@@ -66,7 +67,7 @@ export default class CityForm extends Form {
     this.citySelectField.control.root.addEventListener('change', async (e) => {
       // Find the city from the select field.
       const id = Number(this.citySelectField.control.value);
-      
+
       this.cityFormListener.citySelected(this.cities[id]);
     });
   }
