@@ -33,7 +33,7 @@ export class Forecast extends OpenMeteo {
       for (let j = pos; j < pos + 24; ++j) {
         const hourly = forecast.hourly;
         detailed.push({
-          dateTime: hourly.time[j],
+          dateTime: new Date(hourly.time[j]),
           weathercode: hourly.weathercode[j],
           temperature: hourly.temperature_2m[j],
           windspeed: hourly.windspeed_10m[j],
@@ -41,7 +41,7 @@ export class Forecast extends OpenMeteo {
       }
 
       const overall: DailyWeather = {
-        dateTime: daily.time[i],
+        dateTime: new Date(daily.time[i]),
         weathercode: daily.weathercode[i],
         windspeed: daily.windspeed_10m_max[i],
         temperatureMin: daily.temperature_2m_min[i],

@@ -36,4 +36,12 @@ export default abstract class Input extends Control<HTMLInputElement> {
   public set valueAsNumber(value: number) {
     this.root.valueAsNumber = value;
   }
+
+  public set list(list: string) {
+    this.root.setAttribute('list', list);
+  }
+
+  public get list(): string {
+    return this.root.getAttribute('list');
+  }
 }
