@@ -11,9 +11,10 @@ type ForecastComponents = {
   weathercode: Div;
 };
 
-export default class WeatherCard extends Twofold<HTMLDivElement, Div, Div> {
+export default class WeatherCard extends Div {
   // Elements
-  private readonly date: Paragraph;
+  private readonly swapButton: HTMLButtonElement;
+  private readonly twofold: Twofold<HTMLDivElement, Div, Div>;
   private readonly overall: ForecastComponents;
   private readonly detailed: ForecastComponents;
   private readonly range: RangeInput;
@@ -24,13 +25,29 @@ export default class WeatherCard extends Twofold<HTMLDivElement, Div, Div> {
   constructor(
     forecastModel: ForecastModel,
   ) {
-    super(
+    super();
+
+    this.swapButton = document.createElement('button');
+    this.swapButton.innerHTML = "show detailed";
+    this.swapButton.addEventListener('click', () => {
+      this.swapButton.innerHTML = (this.twofold.currentChild === this.twofold.frontChild)
+        ? "show overall"
+        : "show detailed";
+        
+      this.twofold.swap();
+    });
+
+    this.twofold = new Twofold(
       document.createElement('div'),
       new Div(),
       new Div()
     );
+
+    this.root.append(
+      this.swapButton,
+      this.twofold.root,
+    );
     
-    this.date = new Paragraph();
     this.overall = {
       temperature: new Paragraph(),
       windspeed: new Paragraph(),
@@ -51,27 +68,23 @@ export default class WeatherCard extends Twofold<HTMLDivElement, Div, Div> {
 
     this.range.root.addEventListener('input', () => {
       const value = this.range.value;
-      output.value = value;
+      output.value = `${value}H`;
 
       this.updateDetailed(Number(value));
     });
 
-    this.root.append(
-      this.date.root,
-    );
-
-    this.frontChild.root.append(
+    this.twofold.frontChild.root.append(
       ...Object.values(this.overall).map((o) => o.root),
     );
 
-    this.backChild.root.append(
+    this.twofold.backChild.root.append(
       ...Object.values(this.detailed).map((d) => d.root),
       output.root,
       this.range.root
     );
 
     // Shows the front component by default
-    this.currentChild = 0;
+    this.twofold.currentChild = 0;
     this.updateDetailed(0);
   }
 
@@ -83,9 +96,6 @@ export default class WeatherCard extends Twofold<HTMLDivElement, Div, Div> {
     this._forecastModel = forecastModel;
 
     // Updates the front card
-    const localeDate = forecastModel.overall.dateTime.toLocaleDateString('default', { day:'2-digit', month: 'long'});
-    this.date.textContent = localeDate;
-
     this.overall.temperature.textContent = `${forecastModel.overall.temperatureMin} - ${forecastModel.overall.temperatureMax} °C`;
     this.overall.windspeed.textContent = `${forecastModel.overall.windspeed} km/h`;
   }
@@ -97,4 +107,6 @@ export default class WeatherCard extends Twofold<HTMLDivElement, Div, Div> {
     this.detailed.temperature.textContent = `${hourlyWeather.temperature} °C`;
     this.detailed.windspeed.textContent = `${hourlyWeather.windspeed} km/h`;
   }
+
+
 }

@@ -1,7 +1,7 @@
 import Component from "../component";
 
 export default class Manifold<P extends HTMLElement> extends Component<P> {
-  private readonly _children: Component<any>[];
+  private _children: Component<any>[];
 
   private _currentChild: Component<any>;
 
@@ -20,15 +20,17 @@ export default class Manifold<P extends HTMLElement> extends Component<P> {
     return this._children;
   }
 
+  public set children(children: Component<any>[]) {
+    this._children = children;
+  }
+
   public set currentChild(currentChild: Component<any> | number) {
     const child = (currentChild instanceof Component) 
     ? currentChild 
     : this.children[currentChild];
 
-    if (this._currentChild) this.root.replaceChild(child.root, this._currentChild.root);
-    else this.root.appendChild(child.root);
-
     this._currentChild = child;
+    this.root.replaceChildren(this._currentChild.root);
   }
 
   public get currentChild(): Component<any> {

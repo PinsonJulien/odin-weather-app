@@ -7,8 +7,8 @@ export default class Twofold
   F extends Component<any>,
   B extends Component<any>,
 > extends Manifold<P> {
-  protected readonly frontChild: F;
-  protected readonly backChild: B;
+  protected readonly _frontChild: F;
+  protected readonly _backChild: B;
 
   constructor(
     root: P,
@@ -20,8 +20,16 @@ export default class Twofold
       [frontChild, backChild]
     );
 
-    this.frontChild = frontChild;
-    this.backChild = backChild;
+    this._frontChild = frontChild;
+    this._backChild = backChild;
+  }
+
+  public get frontChild(): F {
+    return this._frontChild;
+  }
+
+  public get backChild(): B {
+    return this._backChild;
   }
 
   public swap(): void {

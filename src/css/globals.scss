@@ -50,3 +50,16 @@ $md: 768px;
 $lg: 1024px;
 $xl: 1280px;
 $xxl: 1536px;
+
+// Accessibility
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
