@@ -1,11 +1,13 @@
-import SearchInput from "../../../components/forms/controls/inputs/search-input";
-import Option from "../../../components/forms/controls/options/option";
-import Select from "../../../components/forms/controls/selects/select";
-import Field from "../../../components/forms/fields/field";
-import Form from "../../../components/forms/form";
-import Label from "../../../components/forms/labels/label";
 import { City as CityModel } from "../../../models/city";
 import { City as CityController } from "../../../controllers/city";
+import Form from "../../../../framework/elements/form-elements/form";
+import SearchInput from "../../../../framework/elements/form-elements/controls/inputs/search-input";
+import Field from "../../../../framework/elements/form-elements/fieldsets/fields/field";
+import Select from "../../../../framework/elements/form-elements/controls/selects/select";
+import Label from "../../../../framework/elements/form-elements/labels/label";
+import Fieldset from "../../../../framework/elements/form-elements/fieldsets/fieldset";
+import Legend from "../../../../framework/elements/form-elements/fieldsets/legends/legend";
+import Option from "../../../../framework/elements/form-elements/options/option";
 
 export interface CityFormListener {
   citySelected(city: CityModel): void;
@@ -30,45 +32,70 @@ export default class CityForm extends Form {
     this.cityController = cityController;
     this.cityFormListener = cityFormListener;
 
-    this.searchField = new Field(
-      new Label('Search your city:', 'city-search'),
-      new SearchInput('city-search')
-    );
+    this.searchField = new Field({
+      id: "city-search",
+      label: new Label({textContent: 'Search your city:'}),
+      control: new SearchInput({name: 'city-search'})
+    });
+      
     this.searchField.control.root.autocomplete = "off";
 
-    this.citySelectField = new Field(
-      new Label('Select your city:', 'city-select'),
-      new Select('city-select')
-    );
+    const searchButton = document.createElement('button');
+    searchButton.textContent = "Search"
+
+    const citySearchFieldset = new Fieldset({
+      legend: new Legend({hidden: true, textContent: "Insert your city"}),
+      fields: [
+        this.searchField
+      ]
+    });
+
+    citySearchFieldset.root.appendChild(searchButton);
+
+    this.citySelectField = new Field({
+      id: 'city-select',
+      label: new Label({textContent: 'Select your city:'}),
+      control: new Select({name: 'city'})
+    });
 
     this.root.append(
       this.searchField.root,
+      citySearchFieldset.root,
       this.citySelectField.root,
     );
 
     // Events
-    this.citySelectField.control.root.addEventListener('click', async (e) => {
+    searchButton.addEventListener('click', async (e) => {
+      e.preventDefault();
+
       const value = this.searchField.control.value;
       if (this.lastCitySearch === value) return; 
       this.lastCitySearch = value;
 
       // search for cities with a similar given name
       this.cities = await this.cityController.search(value);
-      const options: Option[] = this.cities.map((city, id) => {
-        return new Option({
-          value: id.toString(),
-          text: `${city.name} [${city.country}, ${city.admin}]`
-        });
+      const defaultOption = new Option({
+        textContent: "Select your city"
       });
+      const options: Option[] = [
+        defaultOption,
+        ...this.cities.map((city, id) => {
+          return new Option({
+            value: id.toString(),
+            textContent: `${city.name} [${city.country}, ${city.admin}]`
+          });
+        }),
+      ];
 
       this.citySelectField.control.options = options;
     });
 
     this.citySelectField.control.root.addEventListener('change', async (e) => {
-      // Find the city from the select field.
-      const id = Number(this.citySelectField.control.value);
+      const value = Number(this.citySelectField.control.value);
 
-      this.cityFormListener.citySelected(this.cities[id]);
+      if (isNaN(value)) return;
+      // Find the city from the select field.
+      this.cityFormListener.citySelected(this.cities[value]);
     });
   }
 }

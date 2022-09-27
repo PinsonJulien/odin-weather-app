@@ -1,6 +1,6 @@
 import { Geocoding as GeocodingService } from "../services/open-meteo/geocoding";
-import Controller from "./controller";
 import { City as CityModel } from "../models/city";
+import Controller from "../../framework/controllers/controller";
 
 export class City extends Controller {
   private readonly geocodingService: GeocodingService;

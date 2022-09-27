@@ -1,7 +1,7 @@
-import Fetch from "../../utils/fetch/fetch";
-import Service from "../service";
+import Fetch from "../../../framework/utils/fetch";
+import Service from "../../../framework/services/service";
 
-export default class OpenMeteo extends Service{
+export default class OpenMeteo extends Service {
   private fetchAPI = new Fetch();
 
   private url: string;

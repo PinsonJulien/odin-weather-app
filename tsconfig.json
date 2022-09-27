@@ -8,5 +8,5 @@
     "allowJs": true,
     "moduleResolution": "node",
   },
-  "include": ["src", "index.d.ts"] 
+  "include": ["src", "index.d.ts", "framework/elements/icons", "framework/elements", "framework/views"] 
 }

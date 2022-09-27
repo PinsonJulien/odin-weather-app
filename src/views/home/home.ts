@@ -1,18 +1,18 @@
 import { City as CityModel } from "../../models/city";
 import { City as CityController } from "../../controllers/city";
 import { Forecast as ForecastController } from "../../controllers/forecast";
-
-import View from "../view";
+import View from "../../../framework/views/view";
 import CityForm, { CityFormListener } from "./components/city-form";
+import Fieldset from "../../../framework/elements/form-elements/fieldsets/fieldset";
+import Paragraph from "../../../framework/elements/html/paragraph";
 import WeatherCard from "./components/weather-card";
-import Div from "../../components/html/div";
-import Paragraph from "../../components/html/paragraph";
-import Fieldset from "../../components/forms/fieldsets/fieldset";
-import Field from "../../components/forms/fieldsets/fields/field";
-import RadioInput from "../../components/forms/controls/inputs/radio-input";
-import Label from "../../components/forms/labels/label";
-import Legend from "../../components/forms/fieldsets/legends/legend";
-import Manifold from "../../components/manifold/manifold";
+import Div from "../../../framework/elements/html/div";
+import Legend from "../../../framework/elements/form-elements/fieldsets/legends/legend";
+import Field from "../../../framework/elements/form-elements/fieldsets/fields/field";
+import RadioInput from "../../../framework/elements/form-elements/controls/inputs/radio-input";
+import Label from "../../../framework/elements/form-elements/labels/label";
+import Manifold from "../../../framework/elements/manifold/manifold";
+
 
 export default class Home extends View implements CityFormListener {
   private readonly form: CityForm;
@@ -39,7 +39,7 @@ export default class Home extends View implements CityFormListener {
     const topBar = new Div();
 
     this.dateRadios = new Fieldset({
-      legend: new Legend({text: "Choose a day to show", hidden: true}),
+      legend: new Legend({textContent: "Choose a day to show", hidden: true}),
       fields: [],
     });
 
@@ -57,7 +57,7 @@ export default class Home extends View implements CityFormListener {
       this.selectedDate.root,
     );
 
-    this.weatherManifold = new Manifold(new Div().root, []);
+    this.weatherManifold = new Manifold(new Div().root);
 
     this.root.append(
       this.form.root,
@@ -79,7 +79,7 @@ export default class Home extends View implements CityFormListener {
       return new WeatherCard(data);
     });
 
-    this.weatherManifold.children = this.weatherCards;
+    this.weatherManifold.elements = this.weatherCards;
     this.changeVisibleCard(0);
 
     this.updateDateRadios(forecastData.map((f) => f.overall.dateTime));
@@ -87,12 +87,13 @@ export default class Home extends View implements CityFormListener {
 
   private updateDateRadios(dates: Date[]) {
     const tmpDateRadios = dates.map((d, i) => {
-      const id = `radio-date-${i}`;
+      const sharedId = `radio-date-${i}`;
       const field = new Field<RadioInput>({
-        id,
-        label: new Label(Home.formatDate(d), id),
-        control: new RadioInput('radio-date')
+        sharedId,
+        label: new Label({textContent: Home.formatDate(d)}),
+        control: new RadioInput({name: 'date'}),
       });
+
       field.control.value = i.toString();
 
       return field;
@@ -106,13 +107,13 @@ export default class Home extends View implements CityFormListener {
 
   private changeVisibleCard(id: number) {
     const minLength = 0;
-    const maxLength = this.weatherManifold.children.length - 1;
+    const maxLength = this.weatherManifold.elements.length - 1;
     if (id <= minLength) id = minLength;
     if (id > maxLength) id = maxLength;
 
-    this.weatherManifold.currentChild = id;
+    this.weatherManifold.currentElement = id;
     
-    const date = (this.weatherManifold.currentChild as WeatherCard).forecastModel.overall.dateTime;
+    const date = (this.weatherManifold.currentElement as WeatherCard).forecastModel.overall.dateTime;
     this.selectedDate.textContent = Home.formatDate(date);
   }
 

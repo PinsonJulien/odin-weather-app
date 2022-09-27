@@ -1,4 +1,4 @@
-import Controller from "./controller";
+import Controller from "../../framework/controllers/controller";
 import { Forecast as ForecastService } from "../services/open-meteo/forecast";
 import { City as CityModel } from "../models/city";
 import { Forecast as ForecastModel } from "../models/forecast";

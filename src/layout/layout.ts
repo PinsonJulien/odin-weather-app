@@ -1,5 +1,5 @@
-import Div from "../components/html/div";
-import Main from "../components/html/main";
+import Div from "../../framework/elements/html/div";
+import Main from "../../framework/elements/html/main";
 
 export default class Layout extends Div {
   private readonly _main: Main;

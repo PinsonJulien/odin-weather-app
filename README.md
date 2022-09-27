@@ -19,7 +19,6 @@ Github workflow builds the project to the gh-pages branch, which serves as the g
 Currently none
 
 ## Features to implement
-- Refactor the input and labels.
 - Page styling
 - Left and right cursors and mouse mouvement events listening.
 - Home page cleanup.

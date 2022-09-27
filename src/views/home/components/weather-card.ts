@@ -1,8 +1,8 @@
-import RangeInput from "../../../components/forms/controls/inputs/range-input";
-import Output from "../../../components/forms/controls/outputs/output";
-import Div from "../../../components/html/div";
-import Paragraph from "../../../components/html/paragraph";
-import Twofold from "../../../components/manifold/twofold";
+import RangeInput from "../../../../framework/elements/form-elements/controls/inputs/range-input";
+import Output from "../../../../framework/elements/form-elements/controls/outputs/output";
+import Div from "../../../../framework/elements/html/div";
+import Paragraph from "../../../../framework/elements/html/paragraph";
+import Twofold from "../../../../framework/elements/manifold/twofold";
 import { Forecast as ForecastModel } from "../../../models/forecast";
 
 type ForecastComponents = {
@@ -30,10 +30,10 @@ export default class WeatherCard extends Div {
     this.swapButton = document.createElement('button');
     this.swapButton.innerHTML = "show detailed";
     this.swapButton.addEventListener('click', () => {
-      this.swapButton.innerHTML = (this.twofold.currentChild === this.twofold.frontChild)
+      this.swapButton.innerHTML = (this.twofold.currentElement === this.twofold.frontElement)
         ? "show overall"
         : "show detailed";
-        
+
       this.twofold.swap();
     });
 
@@ -62,7 +62,14 @@ export default class WeatherCard extends Div {
 
     this.forecastModel = forecastModel;
 
-    this.range = new RangeInput('detailed-range', 0, 23, 1, 'detailed-range');
+    this.range = new RangeInput({
+      min: 0,
+      max: 23,
+      step: 1,
+      name: "detailed-range",
+      valueAsNumber: 0
+    });
+
     this.range.root.defaultValue = "0";
     const output = new Output();
 
@@ -73,18 +80,18 @@ export default class WeatherCard extends Div {
       this.updateDetailed(Number(value));
     });
 
-    this.twofold.frontChild.root.append(
+    this.twofold.frontElement.root.append(
       ...Object.values(this.overall).map((o) => o.root),
     );
 
-    this.twofold.backChild.root.append(
+    this.twofold.backElement.root.append(
       ...Object.values(this.detailed).map((d) => d.root),
       output.root,
       this.range.root
     );
 
     // Shows the front component by default
-    this.twofold.currentChild = 0;
+    this.twofold.currentElement = 0;
     this.updateDetailed(0);
   }
 
@@ -107,6 +114,4 @@ export default class WeatherCard extends Div {
     this.detailed.temperature.textContent = `${hourlyWeather.temperature} °C`;
     this.detailed.windspeed.textContent = `${hourlyWeather.windspeed} km/h`;
   }
-
-
 }
