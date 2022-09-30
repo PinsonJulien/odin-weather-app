@@ -13,6 +13,7 @@ export default class Label extends NonVoidElement<HTMLLabelElement> {
     if (props.for) this.for = props.for;
   }
 
+  // Getters / Setters
   public get for(): string {
     return this.root.htmlFor;
   }
@@ -20,4 +21,7 @@ export default class Label extends NonVoidElement<HTMLLabelElement> {
   public set for(htmlFor: string) {
     this.root.htmlFor = htmlFor;
   }
+
+  // Methods
+  public refresh(): void {}
 }

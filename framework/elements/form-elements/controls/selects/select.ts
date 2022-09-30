@@ -17,6 +17,8 @@ export default class Select extends NonVoidElement<HTMLSelectElement> implements
     if (select.options) this.options = select.options;
   }
 
+  // Getters / Setters
+
   public get name(): string {
     return this.root.name;
   }
@@ -41,4 +43,7 @@ export default class Select extends NonVoidElement<HTMLSelectElement> implements
     this._options = options;
     this.root.replaceChildren(...this._options.map((o) => o.root));
   }
+
+  // Methods
+  public refresh(): void {}
 }

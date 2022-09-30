@@ -19,7 +19,6 @@ Currently none
 Currently none
 
 ## Features to implement
-- Need abstract method called "refresh" on Element class.
 - Page styling
 - Left and right cursors and mouse mouvement events listening.
 - Home page cleanup.

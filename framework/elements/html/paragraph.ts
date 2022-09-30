@@ -8,4 +8,7 @@ export default class Paragraph extends NonVoidElement<HTMLParagraphElement> {
   ) {
     super(document.createElement('p'), paragraph);
   }
+
+  // Methods
+  public refresh(): void {}
 }

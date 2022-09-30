@@ -8,4 +8,7 @@ export default class Main extends NonVoidElement<HTMLElement> {
   ) {
     super(document.createElement('main'), main);
   }
+
+  // Methods
+  public refresh(): void {}
 }

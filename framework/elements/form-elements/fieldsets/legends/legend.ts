@@ -15,6 +15,7 @@ export default class Legend extends NonVoidElement<HTMLLegendElement> {
     if (props.hidden) this.hidden = props.hidden;
   }
 
+  // Getters / Setters
   public get hidden(): Legend['_hidden'] {
     return this._hidden;
   }
@@ -25,4 +26,7 @@ export default class Legend extends NonVoidElement<HTMLLegendElement> {
     if (this._hidden) this.addClass('sr-only');
     else this.removeClass('sr-only');
   }
+
+  // Methods
+  public refresh(): void {}
 }

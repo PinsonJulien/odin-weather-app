@@ -43,4 +43,7 @@ export default class Manifold<P extends HTMLElement> extends NonVoidElement<P> {
     this._currentElement = element;
     this.replaceChildren(this._currentElement);
   }
+
+  // Methods
+  public refresh(): void {}
 }

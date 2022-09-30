@@ -24,6 +24,8 @@ export default abstract class Input extends VoidElement<HTMLInputElement> implem
     if (props.valueAsNumber) this.valueAsNumber = props.valueAsNumber;
   }
 
+  // Getters / Setters
+
   public get name(): string {
     return this.root.name;
   }
@@ -72,4 +74,7 @@ export default abstract class Input extends VoidElement<HTMLInputElement> implem
   public get list(): string {
     return this.root.getAttribute('list');
   }
+
+  // Methods
+  public refresh() {}
 }

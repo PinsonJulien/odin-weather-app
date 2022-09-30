@@ -10,6 +10,7 @@ export default class Output extends NonVoidElement<HTMLOutputElement> implements
     super(document.createElement('output'), output);
   }
   
+  // Getters / Setters
   public get name(): string {
     return this.root.name;
   }
@@ -25,4 +26,7 @@ export default class Output extends NonVoidElement<HTMLOutputElement> implements
   public set value(value: string) {
     this.root.value = value;
   }
+
+  // Methods
+  public refresh(): void {}
 }

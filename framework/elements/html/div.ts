@@ -8,4 +8,7 @@ export default class Div extends NonVoidElement<HTMLDivElement> {
   ) {
     super(document.createElement('div'), div);
   }
+
+  // Methods
+  public refresh(): void {}
 }

@@ -35,4 +35,7 @@ export default class Form extends NonVoidElement<HTMLFormElement> {
 
     this.root.method = this._method;
   }
+
+  // Methods
+  public refresh(): void {}
 }

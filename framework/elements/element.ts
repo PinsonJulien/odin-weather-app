@@ -3,7 +3,7 @@ export interface ElementProps {
   classes?: string[]
 }
 
-export default class Element<H extends (HTMLElement | SVGElement)> {
+export default abstract class Element<H extends (HTMLElement | SVGElement)> {
   private readonly _root: H;
 
   constructor(
@@ -16,6 +16,10 @@ export default class Element<H extends (HTMLElement | SVGElement)> {
     if (props.classes) this.addClass(...props.classes);
   }
 
+  // Abstract methods
+  public abstract refresh(): void;
+
+  // Getters / Setters
   public get root() {
     return this._root;
   }
@@ -31,6 +35,8 @@ export default class Element<H extends (HTMLElement | SVGElement)> {
   public get classList(): DOMTokenList {
     return this.root.classList;
   }
+
+  // Methods
 
   public addClass(...classes: string[]) {
     this.classList.add(...classes);

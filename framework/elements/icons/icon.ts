@@ -30,4 +30,7 @@ export default class Icon extends NonVoidElement<HTMLSpanElement> {
       `;
     }
   }
+
+  // Methods
+  public refresh(): void {}
 }

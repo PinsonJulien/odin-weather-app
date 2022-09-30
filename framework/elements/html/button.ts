@@ -8,4 +8,7 @@ export default class Button extends NonVoidElement<HTMLButtonElement> {
   ) {
     super(document.createElement('button'), props);
   }
+
+  // Methods
+  public refresh(): void {}
 }

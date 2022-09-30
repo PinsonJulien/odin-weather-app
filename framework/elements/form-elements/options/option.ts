@@ -18,6 +18,8 @@ export default class Option extends NonVoidElement<HTMLOptionElement> {
     if (props.key) this.key = props.key;
   }
 
+  // Getters / Setters
+
   public get value(): string | number {
     return this._value;
   }
@@ -35,4 +37,7 @@ export default class Option extends NonVoidElement<HTMLOptionElement> {
   public set key(key:number) {
     this._key = key;
   }
+
+  // Methods
+  public refresh(): void {}
 }

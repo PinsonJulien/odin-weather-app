@@ -23,7 +23,7 @@ export default class Field<C extends ControlElement> extends Div {
 
     if (props.sharedId) {
       this._sharedId = props.sharedId;
-      console.log(this._sharedId)
+
       if (this.control) this.control.id = this._sharedId;
       if (this.label) this.label.for = this._sharedId;
     }
@@ -31,6 +31,7 @@ export default class Field<C extends ControlElement> extends Div {
     this.refresh();
   }
 
+  // Getters / Setters
   public get sharedId(): Field<C>['_sharedId'] {
     return this._sharedId;
   }
@@ -58,7 +59,8 @@ export default class Field<C extends ControlElement> extends Div {
     this.refresh();
   }
 
-  private refresh() {
+  // Methods
+  public refresh() {
     const components = [];
     if (this.label) {
       components.push(this.label);
@@ -67,11 +69,9 @@ export default class Field<C extends ControlElement> extends Div {
     if (this.control) {
       components.push(this.control);
       this.control.id = this.sharedId;
-    } 
+    }
 
-    this.root.replaceChildren(
-      ...components.map((c) => c.root)
-    );
+    this.children = components;
   }
 
   public setValidity(error: string = "") {

@@ -15,8 +15,10 @@ export default class Fieldset extends NonVoidElement<HTMLFieldSetElement> {
 
     if (props.legend) this._legend = props.legend;
 
-    this.refreshElements();
+    this.refresh();
   }
+
+  // Getters / Setters
 
   public get legend(): Fieldset['_legend'] {
     return this._legend;
@@ -24,10 +26,11 @@ export default class Fieldset extends NonVoidElement<HTMLFieldSetElement> {
 
   public set legend(legend: Fieldset['_legend']) {
     this._legend = legend;
-    this.refreshElements();
+    this.refresh();
   }
 
-  private refreshElements() {
+  // Methods
+  public refresh(): void {
     if (this.legend) {
       this.root.insertBefore(
         this.legend.root,
