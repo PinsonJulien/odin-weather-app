@@ -13,7 +13,7 @@ Github workflow builds the project to the gh-pages branch, which serves as the g
 - npm run dev
 
 ## Known issues
-- Input and labels ID are "undefined"
+Currently none
 
 ## Possible improvements
 Currently none

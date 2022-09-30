@@ -34,7 +34,7 @@ export default class CityForm extends Form {
     this.cityFormListener = cityFormListener;
 
     this.searchField = new Field({
-      id: "city-search",
+      sharedId: "city-search",
       label: new Label({textContent: 'Search your city:'}),
       control: new SearchInput({name: 'city-search'})
     });
@@ -54,7 +54,7 @@ export default class CityForm extends Form {
     });
 
     this.citySelectField = new Field({
-      id: 'city-select',
+      sharedId: 'city-select',
       label: new Label({textContent: 'Select your city:'}),
       control: new Select({name: 'city'})
     });

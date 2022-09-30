@@ -23,8 +23,9 @@ export default class Field<C extends ControlElement> extends Div {
 
     if (props.sharedId) {
       this._sharedId = props.sharedId;
-      if (this.control) this.control.id = props.sharedId;
-      if (this.label) this.label.for = props.sharedId;
+      console.log(this._sharedId)
+      if (this.control) this.control.id = this._sharedId;
+      if (this.label) this.label.for = this._sharedId;
     }
 
     this.refresh();
