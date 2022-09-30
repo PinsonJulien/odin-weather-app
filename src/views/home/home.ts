@@ -40,7 +40,6 @@ export default class Home extends View implements CityFormListener {
 
     this.dateRadios = new Fieldset({
       legend: new Legend({textContent: "Choose a day to show", hidden: true}),
-      fields: [],
     });
 
     this.dateRadios.root.addEventListener('change', (e) => {
@@ -102,7 +101,7 @@ export default class Home extends View implements CityFormListener {
     // First is checked by default.
     (tmpDateRadios[0].control as RadioInput).root.checked = true;
 
-    this.dateRadios.fields = tmpDateRadios;
+    this.dateRadios.children = tmpDateRadios;
   }
 
   private changeVisibleCard(id: number) {

@@ -13,12 +13,13 @@ Github workflow builds the project to the gh-pages branch, which serves as the g
 - npm run dev
 
 ## Known issues
-- Select field doesn't update on first change.
+- Input and labels ID are "undefined"
 
 ## Possible improvements
 Currently none
 
 ## Features to implement
+- Need abstract method called "refresh" on Element class.
 - Page styling
 - Left and right cursors and mouse mouvement events listening.
 - Home page cleanup.

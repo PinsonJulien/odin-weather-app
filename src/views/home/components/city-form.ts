@@ -8,6 +8,7 @@ import Label from "../../../../framework/elements/form-elements/labels/label";
 import Fieldset from "../../../../framework/elements/form-elements/fieldsets/fieldset";
 import Legend from "../../../../framework/elements/form-elements/fieldsets/legends/legend";
 import Option from "../../../../framework/elements/form-elements/options/option";
+import Button from "../../../../framework/elements/html/button";
 
 export interface CityFormListener {
   citySelected(city: CityModel): void;
@@ -40,17 +41,17 @@ export default class CityForm extends Form {
       
     this.searchField.control.root.autocomplete = "off";
 
-    const searchButton = document.createElement('button');
-    searchButton.textContent = "Search"
+    const searchButton = new Button({
+      textContent: "Search",
+    });
 
     const citySearchFieldset = new Fieldset({
       legend: new Legend({hidden: true, textContent: "Insert your city"}),
-      fields: [
-        this.searchField
-      ]
+      children: [
+        this.searchField,
+        searchButton,        
+      ],
     });
-
-    citySearchFieldset.root.appendChild(searchButton);
 
     this.citySelectField = new Field({
       id: 'city-select',
@@ -58,14 +59,20 @@ export default class CityForm extends Form {
       control: new Select({name: 'city'})
     });
 
+    const citySelectFieldset = new Fieldset({
+      legend: new Legend({textContent: 'Select your city'}),
+      children: [
+        this.citySelectField,
+      ]
+    })
+
     this.root.append(
-      this.searchField.root,
       citySearchFieldset.root,
-      this.citySelectField.root,
+      citySelectFieldset.root,
     );
 
     // Events
-    searchButton.addEventListener('click', async (e) => {
+    searchButton.root.addEventListener('click', async (e) => {
       e.preventDefault();
 
       const value = this.searchField.control.value;
