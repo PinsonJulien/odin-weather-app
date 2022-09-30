@@ -1,0 +1,49 @@
+#home-page {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  > form {
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    background-color: $neutral-200;
+
+    > fieldset{
+      display: flex;
+      gap: 1em;
+      
+
+      > .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+
+        > label {
+          font-size: 0.8em;
+          color: $neutral-800
+        }
+
+        > input {
+          width: 150px;
+        }
+
+        > .control {
+          min-width: 150px;
+        }
+      }
+
+      > .field:last-child {
+        width: 75%;
+        max-width: 500px;
+      }
+    }
+
+    button {
+      span {
+        font-size: 2em;
+      }
+    }
+  }
+}

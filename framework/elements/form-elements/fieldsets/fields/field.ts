@@ -17,6 +17,7 @@ export default class Field<C extends ControlElement> extends Div {
     props: FieldProps<C> = {},
   ) {
     super(props);
+    this.addClass('field');
 
     if (props.control) this._control = props.control;
     if (props.label) this._label = props.label;
@@ -69,6 +70,7 @@ export default class Field<C extends ControlElement> extends Div {
     if (this.control) {
       components.push(this.control);
       this.control.id = this.sharedId;
+      this.control.addClass('control');
     }
 
     this.children = components;

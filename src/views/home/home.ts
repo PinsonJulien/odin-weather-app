@@ -31,6 +31,7 @@ export default class Home extends View implements CityFormListener {
     forecastController: Home['forecastController'],
   ) {
     super();
+    this.id = "home-page";
 
     this.cityController = cityController;
     this.forecastController = forecastController;

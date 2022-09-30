@@ -6,10 +6,10 @@ export default class Layout extends Div {
 
   constructor() {
     super();
-
+    this.id = "layout";
     this._main = new Main();
 
-    this.root.append(this._main.root);
+    this.appendChild(this._main);
   }
 
   public get main(): Layout['_main'] {

@@ -9,7 +9,7 @@ import Fieldset from "../../../../framework/elements/form-elements/fieldsets/fie
 import Legend from "../../../../framework/elements/form-elements/fieldsets/legends/legend";
 import Option from "../../../../framework/elements/form-elements/options/option";
 import Button from "../../../../framework/elements/html/button";
-import Div from "../../../../framework/elements/html/div";
+import Search from "../../../../framework/elements/icons/search";
 
 export interface CityFormListener {
   citySelected(city: CityModel): void;
@@ -43,7 +43,9 @@ export default class CityForm extends Form {
     this.searchField.control.root.autocomplete = "off";
 
     const searchButton = new Button({
-      textContent: "Search",
+      children: [
+        new Search()
+      ]
     });
 
     const citySearchFieldset = new Fieldset({
@@ -61,15 +63,15 @@ export default class CityForm extends Form {
     });
 
     const citySelectFieldset = new Fieldset({
-      legend: new Legend({textContent: 'Select your city'}),
+      legend: new Legend({hidden: true, textContent: 'Select your city'}),
       children: [
         this.citySelectField,
       ]
-    })
+    });
 
-    this.root.append(
-      citySearchFieldset.root,
-      citySelectFieldset.root,
+    this.append(
+      citySearchFieldset,
+      citySelectFieldset,
     );
 
     // Events
