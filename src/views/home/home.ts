@@ -12,6 +12,7 @@ import Field from "../../../framework/elements/form-elements/fieldsets/fields/fi
 import RadioInput from "../../../framework/elements/form-elements/controls/inputs/radio-input";
 import Label from "../../../framework/elements/form-elements/labels/label";
 import Manifold from "../../../framework/elements/manifold/manifold";
+import Span from "../../../framework/elements/html/span";
 
 
 export default class Home extends View implements CityFormListener {
@@ -32,38 +33,47 @@ export default class Home extends View implements CityFormListener {
   ) {
     super();
     this.id = "home-page";
-
     this.cityController = cityController;
     this.forecastController = forecastController;
     
     this.form = new CityForm(this.cityController, this);
-    const topBar = new Div();
 
     this.dateRadios = new Fieldset({
+      id: 'date-radio-fieldset',
       legend: new Legend({textContent: "Choose a day to show", hidden: true}),
     });
 
     this.dateRadios.root.addEventListener('change', (e) => {
-      // When the user clicks on any of the radio, change the visible card.
-      const value = (e.target as HTMLInputElement).value;
+      const target = e.target as HTMLInputElement;
+      const value = target.value;
       this.changeVisibleCard(Number(value));
     });
 
-    this.cityName = new Paragraph();
-    this.selectedDate = new Paragraph();
-
-    topBar.root.append(
-      this.cityName.root,
-      this.selectedDate.root,
-    );
-
+    this.cityName = new Paragraph({ classes: ['city-name'] });
+    this.selectedDate = new Paragraph({ classes:['date'] });
     this.weatherManifold = new Manifold(new Div().root);
 
-    this.root.append(
-      this.form.root,
-      topBar.root,
-      this.weatherManifold.root,
-      this.dateRadios.root,
+    const cardShowcase = new Div({
+      id: 'card-showcase',
+      children: [
+        new Div({
+          children: [ 
+            this.cityName,
+            this.selectedDate
+          ],
+        }),
+        new Div({
+          children: [
+            this.weatherManifold,
+          ]
+        }),
+      ],
+    });
+
+    this.append(
+      this.form,
+      this.dateRadios,
+      cardShowcase,      
     );
   }
   
@@ -88,10 +98,20 @@ export default class Home extends View implements CityFormListener {
   private updateDateRadios(dates: Date[]) {
     const tmpDateRadios = dates.map((d, i) => {
       const sharedId = `radio-date-${i}`;
+      const day = d.toLocaleDateString('default', { day:'2-digit' });
+      const month = d.toLocaleDateString('default', { month: 'short' });
+
       const field = new Field<RadioInput>({
         sharedId,
-        label: new Label({textContent: Home.formatDate(d)}),
-        control: new RadioInput({name: 'date'}),
+        label: new Label({
+          children: [
+            new Span({textContent: month}),
+            new Span({textContent: day})
+          ],
+        }),
+        control: new RadioInput({
+          name: 'date',
+        }),
       });
 
       field.control.value = i.toString();

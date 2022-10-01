@@ -1,7 +1,7 @@
 #home-page {
-  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
 
   > form {
     padding: 1em;
@@ -36,7 +36,7 @@
 
       > .field:last-child {
         width: 75%;
-        max-width: 500px;
+        max-width: 150px;
       }
     }
 
@@ -44,6 +44,47 @@
       span {
         font-size: 2em;
       }
+    }
+  }
+
+  > #date-radio-fieldset {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    gap: 1em;
+    flex-wrap: wrap;
+    padding: 1em;
+    color: $neutral-100;
+
+    > .field {
+      > label {
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        background-color: $neutral-500;
+        padding: 0.4em;
+      }
+
+      > .control {
+        @extend .sr-only;
+      }
+    }
+
+    > .field:has(.control:checked) {
+      > label {
+        background-color: $neutral-400;
+      }
+    }
+  }
+
+  > #card-showcase {
+    > div:first-child {
+
+    }
+
+    > div:last-child {
+
     }
   }
 }
