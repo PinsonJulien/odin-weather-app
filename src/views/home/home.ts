@@ -57,21 +57,21 @@ export default class Home extends View implements CityFormListener {
       id: 'card-showcase',
       children: [
         new Div({
+          classes: ['header'],
           children: [ 
             this.cityName,
             this.selectedDate
           ],
         }),
-        new Div({
-          children: [
-            this.weatherManifold,
-          ]
-        }),
+        this.weatherManifold,
       ],
     });
 
     this.append(
-      this.form,
+      new Div({
+        classes: ['header'],
+        children: [this.form]
+      }),
       this.dateRadios,
       cardShowcase,      
     );
@@ -83,7 +83,7 @@ export default class Home extends View implements CityFormListener {
 
     if (forecastData.length === 0) return;
 
-    this.cityName.textContent = `${city.name}, ${city.admin}`;
+    this.cityName.textContent = `${city.name}, ${city.country}, ${city.admin}`;
 
     this.weatherCards = forecastData.map((data) => {
       return new WeatherCard(data);

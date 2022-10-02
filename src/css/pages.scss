@@ -2,47 +2,54 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto 1fr;
-
-  > form {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
+  gap: 2em;
+  
+  > .header {
+    width: 100%;
     background-color: $neutral-200;
+    display: flex;
 
-    > fieldset{
+    > form {
+      padding: 1em;
       display: flex;
+      flex-direction: column;
       gap: 1em;
       
-
-      > .field {
+      margin: 0 auto 0 auto;
+  
+      > fieldset{
         display: flex;
-        flex-direction: column;
-        gap: 0.5em;
-
-        > label {
-          font-size: 0.8em;
-          color: $neutral-800
+        gap: 1em;
+        
+        > .field {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5em;
+  
+          > label {
+            font-size: 0.8em;
+            color: $neutral-800
+          }
+  
+          > input {
+            width: 150px;
+          }
+  
+          > .control {
+            min-width: 150px;
+          }
         }
-
-        > input {
-          width: 150px;
-        }
-
-        > .control {
-          min-width: 150px;
+  
+        > .field:last-child {
+          width: 75%;
+          max-width: 150px;
         }
       }
-
-      > .field:last-child {
-        width: 75%;
-        max-width: 150px;
-      }
-    }
-
-    button {
-      span {
-        font-size: 2em;
+  
+      button {
+        span {
+          font-size: 2em;
+        }
       }
     }
   }
@@ -79,12 +86,106 @@
   }
 
   > #card-showcase {
-    > div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 
+    > .header {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto 0 auto;
+      text-align: center;
+      gap: 1em;
+    
+      > .city-name {
+        font-size: 2em;
+        font-weight: 600;
+        max-width: 600px;
+      }
+
+      > .date {
+        font-size: 1.5em;
+        font-weight: 400;
+      }
     }
 
-    > div:last-child {
+    > .manifold {
+      > .weather-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
 
+        > button {
+          margin: 0 auto 0 auto;
+          border-width: 2px;
+          border-style: solid;
+          border-color: $neutral-800;
+          border-radius: 10px;
+          font-size: 2em;
+        }
+
+        > .manifold {
+          margin: 0 auto 0 auto;
+
+          > div {
+            display: flex;
+            flex-direction: column;
+            gap: 2em;
+
+            .weather-data {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 1em;
+              text-align: center;
+  
+              > * {
+                display: flex;
+                flex-direction: column;
+              }
+  
+              > *:not(.weathercode) {
+                > span:first-child {
+                  font-size: 0.8em;
+                  font-weight: 400;
+                }
+  
+                > span {
+                  font-size: 1.2em;
+                  font-weight: 600;
+                }
+  
+                > span:last-child {
+                  font-size: 1em;
+                  font-weight: 500;
+                }
+              }
+  
+              > .weathercode {
+                font-size: 2em;
+                font-weight: 600;
+                grid-column: span 2;
+              }
+            }
+
+            .range-fieldset {
+              margin: 0 auto 0 auto;
+              display: flex;
+              flex-direction: column;
+              gap: 1em;
+
+              input {
+                scale: 1.5;
+              }
+
+              output {
+                font-size: 1.1em;
+                font-weight: 700;
+                margin: 0 auto 0 auto;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -3,6 +3,7 @@ import Control, { ControlProps } from "../control";
 import { InputType } from "./input-type";
 
 export interface InputProps extends VoidElementProps, ControlProps {
+  defaultValue?: Input['defaultValue'],
   valueAsDate?: Input['valueAsDate'],
   valueAsNumber?: Input['valueAsNumber'],
   list?: Input['list'],
@@ -20,6 +21,7 @@ export default abstract class Input extends VoidElement<HTMLInputElement> implem
 
     if (props.name) this.name = props.name;
     if (props.list) this.list = props.list;
+    if (props.defaultValue) this.defaultValue = props.defaultValue;
     if (props.valueAsDate) this.valueAsDate = props.valueAsDate;
     if (props.valueAsNumber) this.valueAsNumber = props.valueAsNumber;
   }
@@ -49,6 +51,14 @@ export default abstract class Input extends VoidElement<HTMLInputElement> implem
   public set type(type: Input['_type']) {
     this._type = type;
     this.root.type = type;
+  }
+
+  public get defaultValue(): string {
+    return this.root.defaultValue;
+  }
+
+  public set defaultValue(defaultValue: string) {
+    this.root.defaultValue = defaultValue;
   }
 
   public get valueAsDate(): Date {

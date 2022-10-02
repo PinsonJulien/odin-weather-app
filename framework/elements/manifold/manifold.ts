@@ -15,6 +15,7 @@ export default class Manifold<P extends HTMLElement> extends NonVoidElement<P> {
     props: ManifoldProps = {},
   ) {
     super(root, props);
+    this.addClass('manifold');
 
     if (props.elements) {
       this._elements = props.elements;

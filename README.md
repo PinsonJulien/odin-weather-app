@@ -1,7 +1,5 @@
 # Odin - Weather App
 
-WORK IN PROGRESS
-
 The 12th [project](https://www.theodinproject.com/lessons/node-path-javascript-weather-app) of The Odin Project, Javascript path.
 
 See the result [here](https://pinsonjulien.github.io/odin-weather-app/)
@@ -19,6 +17,5 @@ Currently none
 Currently none
 
 ## Features to implement
-- Page styling
 - Left and right cursors and mouse mouvement events listening.
 - Home page cleanup.
