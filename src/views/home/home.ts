@@ -13,7 +13,9 @@ import RadioInput from "../../../framework/elements/form-elements/controls/input
 import Label from "../../../framework/elements/form-elements/labels/label";
 import Manifold from "../../../framework/elements/manifold/manifold";
 import Span from "../../../framework/elements/html/span";
-
+import Button from "../../../framework/elements/html/button";
+import ChevronLeft from "../../../framework/elements/icons/chevron-left";
+import ChevronRight from "../../../framework/elements/icons/chevron-right";
 
 export default class Home extends View implements CityFormListener {
   private readonly form: CityForm;
@@ -21,6 +23,8 @@ export default class Home extends View implements CityFormListener {
   private readonly forecastController: ForecastController;
 
   // Components
+  private readonly leftRadioButton: Button;
+  private readonly rightRadioButton: Button;
   private readonly dateRadios: Fieldset;
   private readonly cityName: Paragraph;
   private readonly selectedDate: Paragraph;
@@ -36,17 +40,15 @@ export default class Home extends View implements CityFormListener {
     this.cityController = cityController;
     this.forecastController = forecastController;
     
+    // Setup dynamic components
     this.form = new CityForm(this.cityController, this);
+
+    this.leftRadioButton = new Button({children: [ new ChevronLeft() ], invisible: true});
+    this.rightRadioButton = new Button({children: [ new ChevronRight() ], invisible: true});
 
     this.dateRadios = new Fieldset({
       id: 'date-radio-fieldset',
       legend: new Legend({textContent: "Choose a day to show", hidden: true}),
-    });
-
-    this.dateRadios.root.addEventListener('change', (e) => {
-      const target = e.target as HTMLInputElement;
-      const value = target.value;
-      this.changeVisibleCard(Number(value));
     });
 
     this.cityName = new Paragraph({ classes: ['city-name'] });
@@ -72,9 +74,31 @@ export default class Home extends View implements CityFormListener {
         classes: ['header'],
         children: [this.form]
       }),
-      this.dateRadios,
-      cardShowcase,      
+      new Div({
+        classes: ['date-selector'],
+        children:[
+          this.leftRadioButton,
+          this.dateRadios,
+          this.rightRadioButton
+        ]
+      }),
+      cardShowcase,
     );
+
+    // Events
+    this.dateRadios.root.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const value = target.value;
+      this.changeVisibleCard(Number(value));
+    });
+
+    this.leftRadioButton.root.addEventListener('click', (e) => {
+      this.nextVisibleCard(-1);
+    });
+
+    this.rightRadioButton.root.addEventListener('click', (e) => {
+      this.nextVisibleCard(1);
+    });
   }
   
   public async citySelected(city: CityModel): Promise<void> {
@@ -84,15 +108,17 @@ export default class Home extends View implements CityFormListener {
     if (forecastData.length === 0) return;
 
     this.cityName.textContent = `${city.name}, ${city.country}, ${city.admin}`;
+    this.updateDateRadios(forecastData.map((f) => f.overall.dateTime));
 
     this.weatherCards = forecastData.map((data) => {
       return new WeatherCard(data);
     });
 
     this.weatherManifold.elements = this.weatherCards;
-    this.changeVisibleCard(0);
 
-    this.updateDateRadios(forecastData.map((f) => f.overall.dateTime));
+    this.leftRadioButton.invisible = true;
+    this.rightRadioButton.invisible = false;
+    this.changeVisibleCard(0);
   }
 
   private updateDateRadios(dates: Date[]) {
@@ -125,6 +151,26 @@ export default class Home extends View implements CityFormListener {
     this.dateRadios.children = tmpDateRadios;
   }
 
+  private nextVisibleCard(step: number) {
+    const currentId = this.weatherManifold.elements.findIndex((e) =>  {
+      return (e === this.weatherManifold.currentElement);
+    });
+
+    const newId = currentId + step;
+
+    if (newId > 0) {
+      this.leftRadioButton.invisible = false;
+    } 
+    else this.leftRadioButton.invisible = true;
+
+    if (newId < (this.weatherManifold.elements.length -1)) {
+      this.rightRadioButton.invisible = false;
+    }
+    else this.rightRadioButton.invisible = true;
+
+    this.changeVisibleCard(newId);
+  }
+
   private changeVisibleCard(id: number) {
     const minLength = 0;
     const maxLength = this.weatherManifold.elements.length - 1;
@@ -132,6 +178,7 @@ export default class Home extends View implements CityFormListener {
     if (id > maxLength) id = maxLength;
 
     this.weatherManifold.currentElement = id;
+    (this.dateRadios.children[id] as Field<RadioInput>).control.checked = true;
     
     const date = (this.weatherManifold.currentElement as WeatherCard).forecastModel.overall.dateTime;
     this.selectedDate.textContent = Home.formatDate(date);

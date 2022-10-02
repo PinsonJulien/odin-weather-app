@@ -17,5 +17,5 @@ Currently none
 Currently none
 
 ## Features to implement
-- Left and right cursors and mouse mouvement events listening.
-- Home page cleanup.
+- Replace "hidden" in the "legend" class for a general element "sr-only" prop.
+- Left and right mouse mouvement events listening.

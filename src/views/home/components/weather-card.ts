@@ -145,7 +145,7 @@ export default class WeatherCard extends Div {
 
   private updateOverall() {
     const overall = this.forecastModel.overall;
-    this.overall.temperature.textContent = `${overall.temperatureMin} - ${overall.temperatureMax}`;
+    this.overall.temperature.textContent = `${overall.temperatureMin} ; ${overall.temperatureMax}`;
     this.overall.windspeed.textContent = `${overall.windspeed}`;
     this.overall.weathercode.textContent = `${this.weathercodeInterpretation(overall.weathercode)}`;
   }

@@ -1,6 +1,8 @@
 export interface ElementProps {
   id?: Element<any>['id'],
-  classes?: string[]
+  classes?: string[],
+  hidden?: boolean,
+  invisible?: Element<any>['invisible'],
 }
 
 export default abstract class Element<H extends (HTMLElement | SVGElement)> {
@@ -14,6 +16,8 @@ export default abstract class Element<H extends (HTMLElement | SVGElement)> {
 
     if (props.id) this.id = props.id;
     if (props.classes) this.addClass(...props.classes);
+    if (props.hidden) this.hidden = props.hidden;
+    if (props.invisible) this.invisible = props.invisible;
   }
 
   // Abstract methods
@@ -36,8 +40,25 @@ export default abstract class Element<H extends (HTMLElement | SVGElement)> {
     return this.root.classList;
   }
 
-  // Methods
+  public get hidden(): boolean {
+    return this.classList.contains('hidden');
+  }
 
+  public set hidden(hidden: boolean) {
+    if (hidden) this.addClass('hidden');
+    else this.removeClass('hidden');
+  }
+
+  public get invisible(): boolean {
+    return this.classList.contains('invisible');
+  }
+
+  public set invisible(invisible: boolean) {
+    if (invisible) this.addClass('invisible');
+    else this.removeClass('invisible');
+  }
+
+  // Methods
   public addClass(...classes: string[]) {
     this.classList.add(...classes);
   }

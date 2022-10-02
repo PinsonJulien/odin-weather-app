@@ -54,33 +54,45 @@
     }
   }
 
-  > #date-radio-fieldset {
+  > .date-selector {
     display: flex;
-    text-align: center;
-    justify-content: center;
-    gap: 1em;
-    flex-wrap: wrap;
-    padding: 1em;
-    color: $neutral-100;
+    margin: 0 auto 0 auto;
 
-    > .field {
-      > label {
-        border-radius: 10px;
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        background-color: $neutral-500;
-        padding: 0.4em;
-      }
-
-      > .control {
-        @extend .sr-only;
-      }
+    > button {
+      font-size: 2em;
     }
 
-    > .field:has(.control:checked) {
-      > label {
-        background-color: $neutral-400;
+    > #date-radio-fieldset {
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      gap: 1em;
+      flex-wrap: wrap;
+      color: $neutral-100;
+  
+      > .field {
+        > label {
+          border-radius: 10px;
+          cursor: pointer;
+          display: flex;
+          flex-direction: column;
+          background-color: $neutral-500;
+          padding: 0.4em;
+        }
+  
+        > label:hover {
+          background-color: $neutral-400;
+        }
+  
+        > .control {
+          @extend .sr-only;
+        }
+      }
+  
+      > .field:has(.control:checked) {
+        > label {
+          background-color: $neutral-400;
+        }
       }
     }
   }
@@ -172,6 +184,7 @@
               display: flex;
               flex-direction: column;
               gap: 1em;
+              accent-color: $neutral-800;
 
               input {
                 scale: 1.5;

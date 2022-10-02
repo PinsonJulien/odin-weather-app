@@ -1,11 +1,23 @@
 import Input, { InputProps } from "./input";
 
-export interface RadioInputProps extends InputProps {}
+export interface RadioInputProps extends InputProps {
+  checked?: RadioInput['checked'],
+}
 
 export default class RadioInput extends Input {
   constructor(
-    radioInput : RadioInputProps = {},
+    props : RadioInputProps = {},
   ) {
-    super('radio', radioInput);
+    super('radio', props);
+
+    if (props.checked) this.checked = props.checked;
+  }
+
+  public get checked(): boolean {
+    return this.root.checked;
+  }
+
+  public set checked(checked: boolean) {
+    this.root.checked = checked;
   }
 }
