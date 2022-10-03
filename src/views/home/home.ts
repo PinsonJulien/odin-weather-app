@@ -69,19 +69,21 @@ export default class Home extends View implements CityFormListener {
       ],
     });
 
+    const dateSelector = new Div({
+      classes: ['date-selector'],
+      children:[
+        this.leftRadioButton,
+        this.dateRadios,
+        this.rightRadioButton
+      ]
+    });
+
     this.append(
       new Div({
         classes: ['header'],
         children: [this.form]
       }),
-      new Div({
-        classes: ['date-selector'],
-        children:[
-          this.leftRadioButton,
-          this.dateRadios,
-          this.rightRadioButton
-        ]
-      }),
+      dateSelector,
       cardShowcase,
     );
 
@@ -98,6 +100,25 @@ export default class Home extends View implements CityFormListener {
 
     this.rightRadioButton.root.addEventListener('click', (e) => {
       this.nextVisibleCard(1);
+    });
+
+    // Swipe events
+    let touchStartX: number;
+    this.root.addEventListener('touchstart', (e) => {
+      const changedTouches = e.changedTouches[0];
+      touchStartX = changedTouches.screenX;
+    });
+
+    this.root.addEventListener('touchend', (e) => {
+      if (this.dateRadios.children.length < 2) return;
+
+      const changedTouches = e.changedTouches[0];
+      const x = changedTouches.screenX;
+      // Swipe left
+      if (x < touchStartX) this.nextVisibleCard(-1);
+      
+      // Swipe right
+      if (x > touchStartX) this.nextVisibleCard(1);
     });
   }
   

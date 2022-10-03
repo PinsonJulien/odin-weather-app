@@ -15,6 +15,3 @@ Currently none
 
 ## Possible improvements
 Currently none
-
-## Features to implement
-- Left and right mouse mouvement events listening.
