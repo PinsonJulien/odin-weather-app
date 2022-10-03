@@ -17,5 +17,4 @@ Currently none
 Currently none
 
 ## Features to implement
-- Replace "hidden" in the "legend" class for a general element "sr-only" prop.
 - Left and right mouse mouvement events listening.

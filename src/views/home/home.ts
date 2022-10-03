@@ -48,7 +48,7 @@ export default class Home extends View implements CityFormListener {
 
     this.dateRadios = new Fieldset({
       id: 'date-radio-fieldset',
-      legend: new Legend({textContent: "Choose a day to show", hidden: true}),
+      legend: new Legend({textContent: "Choose a day to show", srOnly: true}),
     });
 
     this.cityName = new Paragraph({ classes: ['city-name'] });

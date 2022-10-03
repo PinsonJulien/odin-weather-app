@@ -49,7 +49,7 @@ export default class CityForm extends Form {
     });
 
     const citySearchFieldset = new Fieldset({
-      legend: new Legend({hidden: true, textContent: "Insert your city"}),
+      legend: new Legend({srOnly: true, textContent: "Insert your city"}),
       children: [
         this.searchField,
         searchButton,        
@@ -63,7 +63,7 @@ export default class CityForm extends Form {
     });
 
     const citySelectFieldset = new Fieldset({
-      legend: new Legend({hidden: true, textContent: 'Select your city'}),
+      legend: new Legend({srOnly: true, textContent: 'Select your city'}),
       children: [
         this.citySelectField,
       ]

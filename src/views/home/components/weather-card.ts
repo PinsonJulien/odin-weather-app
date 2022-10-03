@@ -53,7 +53,7 @@ export default class WeatherCard extends Div {
     this.rangeOutput = new Output();
 
     const rangeFieldset = new Fieldset({
-      legend: new Legend({ hidden: true, textContent: "Choose a time" }),
+      legend: new Legend({ srOnly: true, textContent: "Choose a time" }),
       classes: ['range-fieldset'],
       children: [
         this.range,

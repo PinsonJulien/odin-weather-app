@@ -3,6 +3,7 @@ export interface ElementProps {
   classes?: string[],
   hidden?: boolean,
   invisible?: Element<any>['invisible'],
+  srOnly?: Element<any>['srOnly'],
 }
 
 export default abstract class Element<H extends (HTMLElement | SVGElement)> {
@@ -18,6 +19,7 @@ export default abstract class Element<H extends (HTMLElement | SVGElement)> {
     if (props.classes) this.addClass(...props.classes);
     if (props.hidden) this.hidden = props.hidden;
     if (props.invisible) this.invisible = props.invisible;
+    if (props.srOnly) this.srOnly = props.srOnly;
   }
 
   // Abstract methods
@@ -56,6 +58,15 @@ export default abstract class Element<H extends (HTMLElement | SVGElement)> {
   public set invisible(invisible: boolean) {
     if (invisible) this.addClass('invisible');
     else this.removeClass('invisible');
+  }
+
+  public get srOnly(): boolean {
+    return this.classList.contains('sr-only');
+  }
+
+  public set srOnly(srOnly: boolean) {
+    if (srOnly) this.addClass('sr-only');
+    else this.removeClass('sr-only');
   }
 
   // Methods
