@@ -110,13 +110,18 @@ export default class Home extends View implements CityFormListener {
     });
 
     this.root.addEventListener('touchend', (e) => {
+      // Does not swipe on input elements.
+      const target = (e.target as HTMLElement);
+      if (target.tagName === 'INPUT') return;
+      
+      // Does not swipe if the date radio isn't populated yet.
       if (this.dateRadios.children.length < 2) return;
 
       const changedTouches = e.changedTouches[0];
       const x = changedTouches.screenX;
       // Swipe left
       if (x < touchStartX) this.nextVisibleCard(-1);
-      
+
       // Swipe right
       if (x > touchStartX) this.nextVisibleCard(1);
     });
